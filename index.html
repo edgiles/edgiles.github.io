@@ -41,8 +41,8 @@ let svg = [];
 // Activate
 const activate = (idx) => {
     svg = buildSvg();
-    svg.setAttribute("width", "640");
-    svg.setAttribute("height", "640");
+    svg.setAttribute("width", "100vh");
+    svg.setAttribute("height", "100vh");
 
     for (let i = 0; i < 15; i++) {
         circle[i] = buildCircle(idx);

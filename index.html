@@ -30,7 +30,7 @@ const buildCircle = () => {
 const kickOff = (circle) => {
     let rando;
     setInterval(() => {
-        let pix = vhTOpx(100);
+        let pix = vhTOpx(40);
         rando = Math.round(Math.random(100) * (pix / 2));
         circle.setAttribute("r", rando);
         circle.setAttribute("fill", "hsla(" + rando + ", 50%, 50%, 0.35)");

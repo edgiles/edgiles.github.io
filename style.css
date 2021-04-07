@@ -1,8 +1,9 @@
 body {
   background: black;
 }
+
 circle {
-  animation: pingu .880s linear infinite alternate;
+  animation: wibble .880s linear infinite alternate;
   transition: all .440s ease;
   transform-origin: center;
   -webkit-filter: drop-shadow(12px 12px 7px rgba(255,0,0,1));      
@@ -12,9 +13,11 @@ circle {
 #container {
   display: flex;
   justify-content: center;
+  height: 660px;
+  align-items: center;
 }
 
-@keyframes pingu {
+@keyframes wibble {
   0% {
     transform: scale(1);
   }

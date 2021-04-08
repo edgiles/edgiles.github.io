@@ -1,75 +1,90 @@
-<!Doctype HTML>
+<!DOCTYPE html>
 <html>
   <head>
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
     <div id="container"></div>
     <script>
-      const buildSvg = () => {
-    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    const container = document.getElementById("container");
-    container.appendChild(svg);
-    return svg;
-};
+      (() => {
+        let circle = [];
+        let svg = [];
 
-const buildCircle = () => {
-    const circle = document.createElementNS(
-        "http://www.w3.org/2000/svg",
-        "circle"
-    );
-    circle.setAttribute("width", "500");
-    circle.setAttribute("height", "500");
-    circle.setAttribute("cx", "50%");
-    circle.setAttribute("cy", "50%");
-    circle.setAttribute("r", "50");
-    svg.appendChild(circle);
-    return circle;
-};
+        const buildSvg = () => {
+          const svg = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "svg"
+          );
+          const container = document.getElementById("container");
+          container.appendChild(svg);
+          return svg;
+        };
 
-const kickOff = (circle) => {
-    let rando;
-    setInterval(() => {
-        let pix = vhTOpx(40);
-        rando = Math.round(Math.random(100) * (pix / 2));
-        circle.setAttribute("r", rando);
-        circle.setAttribute("fill", "hsla(" + rando + ", 50%, 50%, 0.35)");
-    }, 440);
-};
-let circle = [];
-let svg = [];
-// Activate
-const activate = (idx) => {
-    svg = buildSvg();
-    svg.setAttribute("width", "100vh");
-    svg.setAttribute("height", "100vh");
+        const buildCircle = () => {
+          const circle = document.createElementNS(
+            "http://www.w3.org/2000/svg",
+            "circle"
+          );
+          circle.setAttribute("width", "500");
+          circle.setAttribute("height", "500");
+          circle.setAttribute("cx", "50%");
+          circle.setAttribute("cy", "50%");
+          circle.setAttribute("r", "50");
+          svg.appendChild(circle);
+          return circle;
+        };
 
-    for (let i = 0; i < 15; i++) {
-        circle[i] = buildCircle(idx);
-        setTimeout(() => {
-            kickOff(circle[i]);
-        }, 220);
-    }
-};
+        const kickOff = (circle) => {
+          let rando;
+          setInterval(() => {
+            let pix = vhTOpx(40);
+            rando = Math.round(Math.random(100) * (pix / 2));
+            circle.setAttribute("r", rando);
+            circle.setAttribute("fill", "hsla(" + rando + ", 50%, 50%, 0.35)");
+          }, 440);
+        };
 
-// activate();
-for (let i = 0; i < 1; i++) {
-  activate();
-}
+        const relocate = ({ clientX, clientY, preventDefault, target }) => {
+          const container = document.getElementById("container");
+          container.style.transform = `translate(${clientX - 250}px, ${
+            clientY - 500
+          }px)`;
+        };
 
-function vhTOpx(value) {
-    var w = window,
-        d = document,
-        e = d.documentElement,
-        g = d.getElementsByTagName("body")[0],
-        x = w.innerWidth || e.clientWidth || g.clientWidth,
-        y = w.innerHeight || e.clientHeight || g.clientHeight;
+        const listenForPokes = () => {
+          document.addEventListener("click", relocate, false);
+        };
 
-    var result = y * value / 100;
-    return result;
-}
+        const activate = (idx) => {
+          svg = buildSvg();
+          svg.setAttribute("width", "100vh");
+          svg.setAttribute("height", "100vh");
 
+          for (let i = 0; i < 15; i++) {
+            circle[i] = buildCircle(idx);
+            setTimeout(() => {
+              kickOff(circle[i]);
+            }, 220);
+          }
+
+          listenForPokes();
+        };
+
+        activate();
+
+        function vhTOpx(value) {
+          var w = window,
+            d = document,
+            e = d.documentElement,
+            g = d.getElementsByTagName("body")[0],
+            x = w.innerWidth || e.clientWidth || g.clientWidth,
+            y = w.innerHeight || e.clientHeight || g.clientHeight;
+
+          var result = (y * value) / 100;
+          return result;
+        }
+      })();
     </script>
   </body>
 </html>
